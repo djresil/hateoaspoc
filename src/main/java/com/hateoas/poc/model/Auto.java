@@ -14,7 +14,9 @@ public class Auto {
     private String color;
 
 
-    private Long agenciaId;
+    @ManyToOne(fetch =FetchType.LAZY )
+    @JoinColumn(name = "agenciaId")
+    private Agencia agencia;
 
 
     public Auto(){}
@@ -25,19 +27,17 @@ public class Auto {
         this.color = color;
     }
 
+    public Agencia getAgencia() {
+        return agencia;
+    }
+
+    public void setAgencia(Agencia agencia) {
+        this.agencia = agencia;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
-
-    public Long getAgenciaId() {
-        return agenciaId;
-    }
-
-    public void setAgenciaId(Long agenciaId) {
-        this.agenciaId = agenciaId;
-    }
-
-
 
 
     public Long getId() {

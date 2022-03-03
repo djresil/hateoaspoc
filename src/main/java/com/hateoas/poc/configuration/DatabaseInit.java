@@ -68,11 +68,13 @@ public class DatabaseInit implements CommandLineRunner {
            int anio = random.nextInt(30 ) +1990;
            int indexAgencia = random.nextInt(agencias.size()-1);
 
+            Agencia agencia = agencias.get(indexAgencia);
+
            Auto auto = new Auto(marca[indexMarca],  anio,  color[indexColor]);
 
-           autoRepository.save(auto);
-           agenciaAutosRepository.findById(indexAgencia);
-           agencias.get(indexAgencia).addAuto(auto);
+           auto.setAgencia(agencia);
+
+            agencia.addAuto(auto);
 
         }
 

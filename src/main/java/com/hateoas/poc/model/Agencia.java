@@ -3,7 +3,9 @@ package com.hateoas.poc.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Agencia {
@@ -15,8 +17,8 @@ public class Agencia {
 
     private String domicilio;
 
-    @OneToMany(mappedBy = "agenciaId", cascade = CascadeType.ALL)
-    private List<Auto> autos = new ArrayList<>();
+    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Auto> autos = new HashSet<>();
 
     public Agencia(){
 
@@ -48,11 +50,11 @@ public class Agencia {
         this.domicilio = domicilio;
     }
 
-    public List<Auto> getAutos() {
+    public Set<Auto> getAutos() {
         return autos;
     }
 
-    public void setAutos(List<Auto> autos) {
+    public void setAutos(Set<Auto> autos) {
         this.autos = autos;
     }
 
