@@ -1,11 +1,12 @@
 package com.hateoas.poc.model;
 
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class AgenciaAutos {
+public class Agencia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,11 +15,18 @@ public class AgenciaAutos {
 
     private String domicilio;
 
-    @OneToMany
+    @OneToMany(mappedBy = "agenciaId", cascade = CascadeType.ALL)
     private List<Auto> autos = new ArrayList<>();
 
-    public AgenciaAutos(String nombre, String domicilio) {
+    public Agencia(){
+
     }
+
+    public Agencia(String razonSocial, String domicilio) {
+        this.razonSocial = razonSocial;
+        this.domicilio = domicilio;
+    }
+
 
     public Long getId() {
         return id;

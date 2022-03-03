@@ -13,6 +13,33 @@ public class Auto {
     private int modelo;
     private String color;
 
+
+    private Long agenciaId;
+
+
+    public Auto(){}
+
+    public Auto(String marca, int modelo, String color) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.color = color;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getAgenciaId() {
+        return agenciaId;
+    }
+
+    public void setAgenciaId(Long agenciaId) {
+        this.agenciaId = agenciaId;
+    }
+
+
+
+
     public Long getId() {
         return id;
     }
