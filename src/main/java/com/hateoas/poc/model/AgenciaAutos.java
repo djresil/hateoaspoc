@@ -17,6 +17,9 @@ public class AgenciaAutos {
     @OneToMany
     private List<Auto> autos = new ArrayList<>();
 
+    public AgenciaAutos(String nombre, String domicilio) {
+    }
+
     public Long getId() {
         return id;
     }
