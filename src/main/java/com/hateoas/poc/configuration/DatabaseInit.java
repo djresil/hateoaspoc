@@ -23,7 +23,7 @@ public class DatabaseInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
       String[] color = new String[]{"Rojo", "Azul", "Verde", "Blanco", "Negro"};
-      String[]  marca = new String[]{"Chevrolet", "Fort", "Peg"}
+      String[]  marca = new String[]{"Chevrolet", "Fort", "Peg"};
 
 
 
