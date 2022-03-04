@@ -1,9 +1,10 @@
 package com.hateoas.poc.dto;
 
-public class AutoDto {
+import org.springframework.hateoas.RepresentationModel;
+
+public class AutoDto extends RepresentationModel<AutoDto> {
     private Long id;
-    private String marca;
-    private int modelo;
+
     private String color;
     private Long agenciaAutosId;
 
@@ -23,21 +24,6 @@ public class AutoDto {
         this.id = id;
     }
 
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public int getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(int modelo) {
-        this.modelo = modelo;
-    }
 
     public String getColor() {
         return color;

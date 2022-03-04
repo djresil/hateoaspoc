@@ -24,5 +24,10 @@ public class AutosService {
     }
 
 
+    public Auto findById(Long id){
+
+        return autoRepository.getById(id);
+    }
+
 
 }
