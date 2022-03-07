@@ -25,7 +25,7 @@ public class AutoController {
 
 
     @GetMapping()
-    public List<AutoDto> getAll(@RequestParam Long agenciaId) {
+public List<AutoDto> getAll(@RequestParam Long agenciaId, @RequestParam int limit, @RequestParam int offset) {
 
 
 

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -26,26 +27,28 @@ public class AgenciaController {
         this.agenciaAutosService = agenciaAutosService;
     }
 
-    @GetMapping
-    public ResponseEntity<AgenciaAutosDto> getAgencias(){
+    @GetMapping()
+    public ResponseEntity<AgenciaAutosDto> getAgencias(@RequestParam int limit, @RequestParam int offset){
 
 
         List<Agencia> agenciaAutos = agenciaAutosService.agenciaAutosList();
 
 
 
-        return  new ResponseEntity(   agenciaAutos.stream().map(this::map).collect(Collectors.toList()) , HttpStatus.OK);
+
+        return  new ResponseEntity(   agenciaAutos.stream().map((Agencia e) -> map(e , limit, offset)).collect(Collectors.toList()) , HttpStatus.OK);
     }
 
-    private AgenciaAutosDto map(Agencia e){
-        AgenciaAutosDto autosDto = new AgenciaAutosDto();
-        autosDto.add(linkTo(methodOn(AutoController.class).getAll(e.getId())).withRel("autos"));
+    private AgenciaAutosDto map(Agencia e, int limit, int offset){
+        AgenciaAutosDto agenciaAutosDto = new AgenciaAutosDto();
+        agenciaAutosDto.add(linkTo(methodOn(AutoController.class).getAll(e.getId(), limit, offset)).withRel("autos"));
 
-        autosDto.setId(e.getId());
-        autosDto.setDomicilio(e.getDomicilio());
-        autosDto.setRazonSocial(e.getRazonSocial());
 
-        return autosDto;
+        agenciaAutosDto.setId(e.getId());
+        agenciaAutosDto.setDomicilio(e.getDomicilio());
+        agenciaAutosDto.setRazonSocial(e.getRazonSocial());
+
+        return agenciaAutosDto;
 
 
     }
