@@ -5,9 +5,10 @@ import com.hateoas.poc.dto.AutoCompletoDto;
 import com.hateoas.poc.dto.AutoDto;
 import com.hateoas.poc.model.Auto;
 import com.hateoas.poc.service.AutosService;
+import com.hateoas.poc.service.bo.PageBO;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -25,21 +26,30 @@ public class AutoController {
 
 
     @GetMapping()
-public List<AutoDto> getAll(@RequestParam Long agenciaId, @RequestParam int limit, @RequestParam int offset) {
+    public PageBO<AutoDto> getAll(@RequestParam Long agenciaId, @RequestParam int limit, @RequestParam int offset, HttpServletRequest request) {
 
 
+        PageBO<Auto> withPage = autosService.findWithPage(agenciaId, limit, offset, request.getRequestURL() + "?" + request.getQueryString());
 
-        return autosService.findAllByAgenciaAutosId(agenciaId).stream().map(this::map).collect(Collectors.toList());
+
+        PageBO<AutoDto> autoDtoPageBO = new PageBO<>();
+        autoDtoPageBO.setContent(withPage.getContent().stream().map(this::map).collect(Collectors.toList()));
+        autoDtoPageBO.setNext(withPage.getNext());
+        autoDtoPageBO.setPrevious(withPage.getPrevious());
+
+
+        return autoDtoPageBO;
     }
 
+
     @GetMapping("/{id}")
-    public AutoCompletoDto getById(@PathVariable Long id){
+    public AutoCompletoDto getById(@PathVariable Long id) {
 
 
         return mapCompleto(autosService.findById(id));
     }
 
-    private AutoDto map(Auto auto){
+    private AutoDto map(Auto auto) {
         AutoDto autoDto = new AutoDto();
 
         autoDto.add(linkTo(methodOn(AutoController.class).getById(auto.getId())).withSelfRel());
@@ -48,10 +58,10 @@ public List<AutoDto> getAll(@RequestParam Long agenciaId, @RequestParam int limi
         autoDto.setColor(auto.getColor());
 
 
-        return  autoDto;
+        return autoDto;
     }
 
-    private AutoCompletoDto mapCompleto(Auto auto){
+    private AutoCompletoDto mapCompleto(Auto auto) {
 
         AutoCompletoDto autoCompletoDto = new AutoCompletoDto();
 
@@ -63,4 +73,6 @@ public List<AutoDto> getAll(@RequestParam Long agenciaId, @RequestParam int limi
 
         return autoCompletoDto;
     }
+
+
 }

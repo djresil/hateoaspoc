@@ -1,15 +1,14 @@
 package com.hateoas.poc.controller;
 
 import com.hateoas.poc.dto.AgenciaAutosDto;
+import com.hateoas.poc.dto.OffsetLimitPageRequest;
 import com.hateoas.poc.model.Agencia;
 import com.hateoas.poc.service.AgenciaAutosService;
-import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +17,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
+@ExposesResourceFor(OffsetLimitPageRequest.class)
 @RequestMapping("/api/agencias")
 public class AgenciaController {
 
@@ -35,13 +35,15 @@ public class AgenciaController {
 
 
 
-
-        return  new ResponseEntity(   agenciaAutos.stream().map((Agencia e) -> map(e , limit, offset)).collect(Collectors.toList()) , HttpStatus.OK);
+        return  new ResponseEntity(   agenciaAutos.stream().map((Agencia e) -> map(e ,limit, offset)).collect(Collectors.toList()) , HttpStatus.OK);
     }
 
     private AgenciaAutosDto map(Agencia e, int limit, int offset){
         AgenciaAutosDto agenciaAutosDto = new AgenciaAutosDto();
-        agenciaAutosDto.add(linkTo(methodOn(AutoController.class).getAll(e.getId(), limit, offset)).withRel("autos"));
+
+
+        agenciaAutosDto.add(linkTo(methodOn(AutoController.class).getAll(e.getId(), limit, offset ,  null))
+                .withRel("autos"));
 
 
         agenciaAutosDto.setId(e.getId());
@@ -49,7 +51,6 @@ public class AgenciaController {
         agenciaAutosDto.setRazonSocial(e.getRazonSocial());
 
         return agenciaAutosDto;
-
 
     }
 
