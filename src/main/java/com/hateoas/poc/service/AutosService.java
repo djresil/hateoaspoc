@@ -40,13 +40,11 @@ public class AutosService {
 
     public PageBO<Auto> findWithPage(Long id, int limit, int offset, String url) {
 
-
         int start = 0;
-        List<Auto> nueva = new ArrayList<>();
         int offsetUrl = offset;
-
-
+                
         List<Auto> autoList = autoRepository.findByAgenciaId(id);
+        List<Auto> nueva = new ArrayList<>();
 
         for (int i = offset; i < autoList.size(); i++) {
             nueva.add(autoList.get(i));

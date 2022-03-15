@@ -19,9 +19,11 @@ public class PageBO<A> {
             pageBO.next = pageBO.urlNext(url, limit, offset);
 
         }
-        if (page.hasPrevious()) {
-            pageBO.previous = "aca irá el previous";
+        if (page.hasPrevious() && (offset - limit) > 0) {
+
+            pageBO.previous = pageBO.urlPrevious(url, limit, offset);
         }
+
         return pageBO;
     }
 
@@ -39,6 +41,12 @@ public class PageBO<A> {
     }
 
     public String urlPrevious(String url, int limit, int offset) {
+
+        String offsetFinal = String.valueOf(offset - limit);
+
+        String replace = "offset=" + offsetFinal;
+
+        url = url.replace("offset=" + offset, replace);
 
 
         return url;
@@ -68,7 +76,15 @@ public class PageBO<A> {
     public void setPrevious(String previous) {
         this.previous = previous;
     }
+
+
+
+
+
+
+
 }
+
 
 
 

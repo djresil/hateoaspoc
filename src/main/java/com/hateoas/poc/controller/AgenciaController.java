@@ -38,17 +38,17 @@ public class AgenciaController {
         return  new ResponseEntity(   agenciaAutos.stream().map((Agencia e) -> map(e ,limit, offset)).collect(Collectors.toList()) , HttpStatus.OK);
     }
 
-    private AgenciaAutosDto map(Agencia e, int limit, int offset){
+    private AgenciaAutosDto map(Agencia agencia, int limit, int offset){
         AgenciaAutosDto agenciaAutosDto = new AgenciaAutosDto();
 
 
-        agenciaAutosDto.add(linkTo(methodOn(AutoController.class).getAll(e.getId(), limit, offset ,  null))
+        agenciaAutosDto.add(linkTo(methodOn(AutoController.class).getAll(agencia.getId(), limit, offset ,  null))
                 .withRel("autos"));
 
 
-        agenciaAutosDto.setId(e.getId());
-        agenciaAutosDto.setDomicilio(e.getDomicilio());
-        agenciaAutosDto.setRazonSocial(e.getRazonSocial());
+        agenciaAutosDto.setId(agencia.getId());
+        agenciaAutosDto.setDomicilio(agencia.getDomicilio());
+        agenciaAutosDto.setRazonSocial(agencia.getRazonSocial());
 
         return agenciaAutosDto;
 
