@@ -13,7 +13,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Component
 public class AutoMapper {
 
-    public AutoDto mapConList(Auto auto) {
+    public AutoDto listaAutoMapperConLink(Auto auto) {
         AutoDto autoDto = new AutoDto();
 
         autoDto.add(linkTo(methodOn(AutoController.class).getById(auto.getId())).withSelfRel());
@@ -25,7 +25,7 @@ public class AutoMapper {
         return autoDto;
     }
 
-    public AutoCompletoDto mapCompleto(Auto auto) {
+    public AutoCompletoDto autoMapper(Auto auto) {
 
         AutoCompletoDto autoCompletoDto = new AutoCompletoDto();
 

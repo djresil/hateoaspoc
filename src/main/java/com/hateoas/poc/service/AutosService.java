@@ -31,11 +31,7 @@ public class AutosService {
     }
 
 
-    public List<Auto> findAllWithLimitOffset(Long id, int limit, int offset) {
 
-
-        return autoRepository.findByAgenciaIdAndMore(id, limit, offset);
-    }
 
 
     public PageBO<Auto> findWithPage(Long id, int limit, int offset, String url) {

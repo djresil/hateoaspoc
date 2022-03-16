@@ -2,8 +2,7 @@ package com.hateoas.poc.repository;
 
 import com.hateoas.poc.model.Auto;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -19,5 +18,5 @@ public interface AutoRepository extends JpaRepository<Auto, Long> {
      List<Auto> findByAgenciaIdAndMore(Long id, int limit, int offset);
 
 
-    Page<Auto> findAllByAgenciaId ( Long id, Pageable pageable);
+
 }

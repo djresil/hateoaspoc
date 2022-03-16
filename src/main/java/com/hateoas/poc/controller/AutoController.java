@@ -27,18 +27,19 @@ public class AutoController {
         this.pageMapper = pageMapper;
     }
 
-
     @GetMapping()
     public PageBODto<AutoDto> getAll(@RequestParam Long agenciaId, @RequestParam int limit, @RequestParam int offset, HttpServletRequest request) {
 
-        return pageMapper.toDto(autosService.findWithPage(agenciaId, limit, offset, request.getRequestURL() + "?" + request.getQueryString()), autoMapper::mapConList);
+        String  url = request.getRequestURL() + "?" + request.getQueryString();
+
+        return pageMapper.toDto(autosService.findWithPage(agenciaId, limit, offset, url), autoMapper::listaAutoMapperConLink);
     }
 
 
     @GetMapping("/{id}")
     public AutoCompletoDto getById(@PathVariable Long id) {
 
-        return autoMapper.mapCompleto(autosService.findById(id));
+        return autoMapper.autoMapper(autosService.findById(id));
     }
 
 }
